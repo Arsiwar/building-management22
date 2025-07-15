@@ -1,17 +1,27 @@
 const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const connectDB = require('./config/connectDB');
+const corsOptions = require('./config/constOptions');
 
-// Initialiser l'application Express
+dotenv.config(); // Charger .env
+
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Route de base pour tester le serveur
+// Connexion à la base de données
+connectDB();
+
+// Middlewares
+app.use(cors(corsOptions));
+app.use(express.json());
+
+// Route de test
 app.get('/', (req, res) => {
   res.send('Bonjour ! Le serveur fonctionne.');
 });
 
-// Définir le port
-const PORT = 5000;
-
-// Démarrer le serveur
+// Démarrage du serveur
 app.listen(PORT, () => {
-  console.log(`Serveur en cours sur le port ${PORT}`);
+  console.log(`🚀 Serveur en cours sur le port ${PORT}`);
 });
