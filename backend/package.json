@@ -1,0 +1,16 @@
+{
+  "name": "building-management-backend",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start":"nodemon src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Backend pour le système de gestion des bâtiments",
+  "dependencies": {
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
