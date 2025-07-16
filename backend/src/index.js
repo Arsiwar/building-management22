@@ -4,6 +4,9 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/connectDB');
 const corsOptions = require('./config/constOptions');
 const User = require('./models/user'); 
+const authRoutes = require('./routes/authRoutes');
+
+const verifyJWT = require('./middleware/verifyJWT');
 
 dotenv.config();
 
@@ -40,6 +43,8 @@ app.post('/test-user', async (req, res) => {
     res.status(500).send(error.message);
   }
 });
+// Utiliser les routes d'authentification
+  app.use('/auth', authRoutes);
 
 app.listen(PORT, () => {
   console.log(`🚀 Serveur en cours sur le port ${PORT}`);
