@@ -25,5 +25,25 @@ const User = require('../models/user');
     );
     res.status(201).json({ accessToken, email: user.email });
   };
+   const login = async (req, res) => {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ message: 'Email et mot de passe requis' });
+    }
+    const foundUser = await User.findOne({ email }).exec();
+    if (!foundUser) {
+      return res.status(401).json({ message: 'Utilisateur non trouvé' });
+    }
+    const match = await bcrypt.compare(password, foundUser.password);
+    if (!match) {
+      return res.status(401).json({ message: 'Mot de passe incorrect' });
+    }
+    const accessToken = jwt.sign(
+      { UserInfo: { id: foundUser._id } },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: '10s' }
+    );
+    res.json({ accessToken, email: foundUser.email });
+  };
 
-  module.exports = { register };
+  module.exports = { register,login };
