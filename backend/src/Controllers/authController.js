@@ -45,5 +45,11 @@ const User = require('../models/user');
     );
     res.json({ accessToken, email: foundUser.email });
   };
+  const logout = (req, res) => {
+    const cookies = req.cookies;
+    if (!cookies?.jwt) return res.sendStatus(204); // Pas de cookie, rien à faire
+    res.clearCookie('jwt', { httpOnly: true, secure: true, sameSite: 'None' });
+    res.json({ message: 'Déconnexion réussie' });
+  };
 
-  module.exports = { register,login };
+  module.exports = { register,login,logout };
