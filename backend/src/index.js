@@ -7,6 +7,7 @@ const User = require('./models/user');
 const authRoutes = require('./routes/authRoutes');
 
 const verifyJWT = require('./middleware/verifyJWT');
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ connectDB();
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cookieParser());
 
 app.get('/', (req, res) => {
   res.send('Bonjour ! Le serveur fonctionne.');
