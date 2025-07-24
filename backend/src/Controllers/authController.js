@@ -30,7 +30,7 @@ const User = require('../models/user');
     );
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: 'None',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -67,7 +67,7 @@ const User = require('../models/user');
     );
     res.cookie('jwt', refreshToken, {
       httpOnly: true,
-      secure: true,
+      secure: false,
       sameSite: 'None',
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
@@ -106,7 +106,7 @@ const User = require('../models/user');
     res.clearCookie('jwt', {
       httpOnly: true,
       sameSite: 'None',
-      secure: true,
+      secure: false,
     });
     res.json({ message: 'Cookie cleared' });
   };
