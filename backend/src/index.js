@@ -56,6 +56,11 @@ app.post('/test-user', async (req, res) => {
   app.get('/', (req, res) => {
   res.send('Bonjour ! Le serveur fonctionne.');
 });
+// Gestion globale des erreurs
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Erreur interne du serveur' });
+});
 
 app.listen(PORT, () => {
   console.log(`🚀 Serveur en cours sur le port ${PORT}`);
