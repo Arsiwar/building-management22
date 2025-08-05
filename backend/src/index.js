@@ -6,6 +6,7 @@ const corsOptions = require('./config/constOptions');
 const User = require('./models/user'); 
 const authRoutes = require('./routes/authRoutes');
 const buildingRoutes = require('./routes/buildingRoutes');
+const roomRoutes = require('./routes/roomRoutes');
 
 const verifyJWT = require('./middleware/verifyJWT');
 const cookieParser = require('cookie-parser');
@@ -47,10 +48,11 @@ app.post('/test-user', async (req, res) => {
 // Utiliser les routes d'authentification
   app.use('/auth', authRoutes);
   app.use('/api/buildings', buildingRoutes);
+  app.use('/api/rooms', roomRoutes);
 
 
 
-  
+
   app.get('/', (req, res) => {
   res.send('Bonjour ! Le serveur fonctionne.');
 });
