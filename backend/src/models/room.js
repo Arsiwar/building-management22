@@ -4,11 +4,19 @@ const roomSchema = new mongoose.Schema({
   name: { type: String, required: true },
   type: { type: String, required: true },
   capacity: { type: Number, required: true },
-  equipment: [{ type: String }],
+  equipment: [{
+    name: String,
+    status: {
+      type: String,
+      enum: ['Disponible', 'Réservée', 'En maintenance'],
+      default: 'Disponible'
+    }
+  }],
   available: { type: Boolean, default: true },
   floor: { type: String, required: true },
   description: { type: String, required: true },
   buildingId: { type: String, required: true, ref: 'Building' },
+  
 });
 
 module.exports = mongoose.models.Room || mongoose.model('Room', roomSchema);
