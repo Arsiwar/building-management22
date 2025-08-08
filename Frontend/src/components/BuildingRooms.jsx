@@ -310,7 +310,7 @@ const downloadPDF = () => {
               </Button>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-600">Description : Cet équipement est un {selectedEquipment.toLowerCase()} de haute qualité, conçu pour une utilisation optimale dans les salles de l'IMT.</p>
+              <p className="text-gray-600">Description : Cet équipement est un {selectedEquipment.name.toLowerCase()} de haute qualité, conçu pour une utilisation optimale dans les salles de l'IMT.</p>
               <p className="text-gray-600 mt-2">État : Fonctionnel</p>
               <p className="text-gray-600 mt-2">Manuel : Disponible sur demande auprès de l'administration.</p>
               <Button 
