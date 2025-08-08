@@ -57,6 +57,7 @@ const BuildingRooms = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedEquipment, setSelectedEquipment] = useState(null);
+  
   useEffect(() => {
     if (buildingId) {
       // generateRooms par une requête au backend
@@ -105,23 +106,36 @@ const BuildingRooms = () => {
   const building = buildingsData[buildingId];
 
   const openModal = (equipment) => {
-    setSelectedEquipment(equipment);
-  };
+  setSelectedEquipment(equipment);
+};
 
-  const closeModal = () => {
-    setSelectedEquipment(null);
-  };
+const closeModal = () => {
+  setSelectedEquipment(null);
+};
 
-  const downloadPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(16);
-    doc.text(`Fiche d'équipement : ${selectedEquipment}`, 10, 10);
-    doc.setFontSize(12);
-    doc.text('Description : Cet équipement est un ' + selectedEquipment.toLowerCase() + ' de haute qualité, conçu pour une utilisation optimale dans les salles de l\'IMT.', 10, 20);
-    doc.text('État : Fonctionnel', 10, 30);
-    doc.text('Manuel : Disponible sur demande auprès de l\'administration.', 10, 40);
-    doc.save(`fiche_${selectedEquipment.toLowerCase()}.pdf`);
-  };
+const downloadPDF = () => {
+  const doc = new jsPDF();
+  doc.setFontSize(16);
+  doc.text(`Fiche d'équipement : ${selectedEquipment.name}`, 10, 10);
+  doc.setFontSize(12);
+  doc.text(`Description : Cet équipement est un ${selectedEquipment.name.toLowerCase()} de haute qualité, conçu pour une utilisation optimale dans les salles de l'IMT.`, 10, 20);
+  doc.text(`État : ${selectedEquipment.status || 'Inconnu'}`, 10, 30);
+  doc.text('Manuel : Disponible sur demande auprès de l\'administration.', 10, 40);
+  doc.save(`fiche_${selectedEquipment.name.toLowerCase()}.pdf`);
+};
+ 
+  const getStatusColor = (status) => {
+  switch (status) {
+    case 'Réservée':
+      return 'bg-red-200 text-red-800 border-red-300';
+    case 'En maintenance':
+      return 'bg-yellow-200 text-yellow-800 border-yellow-300';
+    case 'Disponible':
+      return 'bg-green-200 text-green-800 border-green-300';
+    default:
+      return 'bg-gray-200 text-gray-800 border-gray-300';
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-900 to-blue-700">
@@ -243,28 +257,28 @@ const BuildingRooms = () => {
                         <span className="font-medium text-blue-600">{room.capacity} personnes</span>
                       </div>
                       
-                      {room.equipment.length > 0 && (
-                        <div>
-                          <p className="text-sm text-gray-600 mb-2">🛠️ Équipements:</p>
-                          <div className="flex flex-wrap gap-1">
-                            {room.equipment.slice(0, 3).map((eq) => (
-                              <Badge 
-                                key={eq} 
-                                variant="outline" 
-                                className="text-xs border-blue-200 cursor-pointer hover:bg-blue-100"
-                                onClick={() => openModal(eq)}
-                              >
-                                {eq}
-                              </Badge>
-                            ))}
-                            {room.equipment.length > 3 && (
-                              <Badge variant="outline" className="text-xs border-blue-200">
-                                +{room.equipment.length - 3}
-                              </Badge>
-                            )}
-                          </div>
-                        </div>
-                      )}
+                      {room.equipment && room.equipment.length > 0 && (
+  <div>
+    <p className="text-sm text-gray-600 mb-2">🛠️ Machines:</p>
+    <div className="flex flex-wrap gap-1">
+      {room.equipment.slice(0, 3).map((machine, index) => (
+        <Badge
+          key={index}
+          variant="outline"
+          className={`text-xs border-blue-200 cursor-pointer hover:bg-blue-100 ${getStatusColor(machine.status || 'Disponible')}`}
+          onClick={() => openModal(machine)}
+        >
+          {machine.name} ({machine.status || 'Inconnu'})
+        </Badge>
+      ))}
+      {room.equipment.length > 3 && (
+        <Badge variant="outline" className="text-xs border-blue-200">
+          +{room.equipment.length - 3}
+        </Badge>
+      )}
+    </div>
+  </div>
+)}
                       
                       <div className="pt-2 border-t border-blue-200">
                         <p className="text-xs text-gray-600">
@@ -286,7 +300,7 @@ const BuildingRooms = () => {
           <Card className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
             <CardHeader>
               <CardTitle className="text-xl font-bold text-blue-600">
-                Détails de l'équipement : {selectedEquipment}
+                   Détails de la machine : {selectedEquipment.name}
               </CardTitle>
               <Button 
                 className="absolute top-4 right-4 bg-red-500 text-white hover:bg-red-600"
