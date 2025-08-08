@@ -1,25 +1,34 @@
 import React, { useContext } from 'react';
-import { AuthContext } from "../context/AuthContext";
-
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import { Button } from '@/components/ui/button';
+import { LogOut } from 'lucide-react';
+import { toast } from 'sonner';
 
 const LogoutButton = () => {
   const { logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      await logout(); // Appelle le backend
-      alert("Déconnexion réussie");
-      // Optionnel : redirection vers la page login
-      // navigate("/login");
+      await logout();
+      toast.success('Déconnexion réussie', {
+        description: 'Vous avez été déconnecté avec succès.',
+      });
+      navigate('/login');
     } catch (err) {
-      console.error("Erreur de déconnexion :", err);
+      console.error('Erreur de déconnexion :', err);
+      toast.error('Erreur', {
+        description: 'Erreur lors de la déconnexion.',
+      });
     }
   };
 
   return (
-    <button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded">
+    <Button onClick={handleLogout} variant="destructive" size="sm">
+      <LogOut className="h-4 w-4 mr-2" />
       Déconnexion
-    </button>
+    </Button>
   );
 };
 
