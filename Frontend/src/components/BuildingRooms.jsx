@@ -7,15 +7,8 @@ import { ArrowLeft } from 'lucide-react';
 import LogoutButton from './LogoutButton';
 import jsPDF from 'jspdf';
 import axios from 'axios';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'; // Vérifie cet import
-import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-});
+
+
 
 // Configuration des bâtiments
 const buildingsData = {
@@ -25,14 +18,7 @@ const buildingsData = {
   'D': { id: 'D', name: 'Bâtiment D - Innovation', icon: '💡', description: 'Centre d\'innovation technologique' },
   'E': { id: 'E', name: 'Bâtiment E - Bibliothèque', icon: '📖', description: 'Bibliothèque et espaces d\'étude' }
 };
-// Coordonnées approximatives des bâtiments autour de IMT Nord Europe
-const buildings = [
-  { name: "A:", coords: [50.384874, 3.085626] },
-  { name: "B", coords: [50.385111, 3.084750] },
-  { name: "C", coords: [50.385556, 3.084444] },
-  {name:  'D', coords:[50.3758, 3.0817]},
-  {name:  'E',coords: [50.3750, 3.0809]},
-];
+
 // Types de salles
 const roomTypes = [
   { type: 'Amphithéâtre', icon: '🎭', capacity: 150, equipment: ['Projecteur 4K', 'Système audio', 'Éclairage LED'] },
@@ -153,15 +139,7 @@ const downloadPDF = () => {
       return 'bg-gray-200 text-gray-800 border-gray-300';
   }
 };
-const handleMapZoom = (map) => {
-  map.on("zoomend", () => {
-    setZoomLevel(map.getZoom());
-    console.log("Zoom level:", map.getZoom()); // Vérifie dans la console
-  });
-};
-  const handleBuildingClick = (buildingId) => {
-    navigate(`/building/${buildingId}`);
-  };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-900 to-blue-700">
@@ -232,58 +210,7 @@ const handleMapZoom = (map) => {
           </CardContent>
         </Card>
       </div>
-      {/* Carte interactive des bâtiments */}
-      <div className="mx-6 mb-8">
-        <Card className="bg-gray-100 shadow-lg border-0">
-          <CardHeader>
-            <CardTitle className="text-xl font-bold text-blue-600 flex items-center space-x-2">
-              <span>📍</span>
-              <span>Carte des bâtiments</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <MapContainer
-              center={[50.3754, 3.0813]} // Centre sur IMT Nord Europe
-              zoom={15} // Zoom initial
-              style={{ height: '400px', width: '100%' }}
-              whenCreated={handleMapZoom} // Capture l'instance de la carte
-            >
-              <TileLayer
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              />
-              {zoomLevel > 17 &&
-                Object.entries(buildingsCoords).map(([id, coords]) => {
-                  const building = buildingsData[id];
-                  return (
-                    <Marker
-                      key={id}
-                      position={coords}
-                      eventHandlers={{
-                        click: () => handleBuildingClick(id),
-                      }}
-                    >
-                      <Popup>
-                        <button
-                          onClick={() => handleBuildingClick(id)}
-                          style={{
-                            background: "none",
-                            border: "none",
-                            color: "blue",
-                            cursor: "pointer",
-                            textDecoration: "underline",
-                          }}
-                        >
-                          Voir les salles de {building.name}
-                        </button>
-                      </Popup>
-                    </Marker>
-                  );
-                })}
-            </MapContainer>
-          </CardContent>
-        </Card>
-      </div>
+     
 
       {/* Liste des salles avec design amélioré */}
       <div className="mx-6 pb-8">
