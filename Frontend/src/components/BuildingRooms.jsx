@@ -144,12 +144,12 @@ const downloadPDF = () => {
       return 'bg-gray-200 text-gray-800 border-gray-300';
   }
 };
-// Gestion du zoom pour la carte
-  const handleMapZoom = (map) => {
-    map.on("zoomend", () => {
-      setZoomLevel(map.getZoom());
-    });
-  };
+const handleMapZoom = (map) => {
+  map.on("zoomend", () => {
+    setZoomLevel(map.getZoom());
+    console.log("Zoom level:", map.getZoom()); // Vérifie dans la console
+  });
+};
   const handleBuildingClick = (buildingId) => {
     navigate(`/building/${buildingId}`);
   };
