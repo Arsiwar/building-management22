@@ -21,8 +21,8 @@ const buildings = [
   { name: "A:", coords: [50.384874, 3.085626] },
   { name: "B", coords: [50.385111, 3.084750] },
   { name: "C", coords: [50.385556, 3.084444] },
-  {name:'D', coords:[50.3758, 3.0817]},
-  {name:'E',coords: [50.3750, 3.0809]},
+  {name:  'D', coords:[50.3758, 3.0817]},
+  {name:  'E',coords: [50.3750, 3.0809]},
 ];
 // Types de salles
 const roomTypes = [
