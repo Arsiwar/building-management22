@@ -1,52 +1,10 @@
-import React, { useState } from 'react';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { useNavigate } from 'react-router-dom';
-
-const buildings = [
-  {
-    id: 'A',
-    name: 'Bâtiment A - Administration',
-    icon: '🏛️',
-    coordinates: [50.3780, 3.0710],
-    description: 'Services administratifs et direction',
-    color: 'bg-gray-200',
-  },
-  {
-    id: 'B',
-    name: 'Bâtiment B - Laboratoires',
-    icon: '🔬',
-    coordinates: [50.3782, 3.0715],
-    description: 'Laboratoires de recherche avancée',
-    color: 'bg-gray-200',
-  },
-  {
-    id: 'C',
-    name: 'Bâtiment C - Enseignement',
-    icon: '📚',
-    coordinates: [50.3778, 3.0708],
-    description: 'Amphithéâtres et salles de cours',
-    color: 'bg-gray-200',
-  },
-  {
-    id: 'D',
-    name: 'Bâtiment D - Innovation',
-    icon: '💡',
-    coordinates: [50.3784, 3.0712],
-    description: 'Centre d\'innovation technologique',
-    color: 'bg-gray-200',
-  },
-  {
-    id: 'E',
-    name: 'Bâtiment E - Bibliothèque',
-    icon: '📖',
-    coordinates: [50.3776, 3.0713],
-    description: 'Bibliothèque et espaces d\'étude',
-    color: 'bg-gray-200',
-  },
-];
+import React, { useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
+import { buildings } from "../utils/buildingsData"; 
 
 const IMTMap = () => {
   const [selectedBuilding, setSelectedBuilding] = useState(null);
@@ -144,7 +102,7 @@ const IMTMap = () => {
             <p className="text-xs opacity-90">Cliquez sur un bâtiment pour explorer ses salles</p>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-4"> {/* Changé de grid-cols-1 md:grid-cols-3 à grid-cols-3 */}
+        <div className="grid grid-cols-3 gap-4">
           <Card className="bg-gray-100 shadow-md hover:shadow-lg transition-all duration-300 border-0 group">
             <CardContent className="p-4 text-center">
               <div className="text-3xl mb-2 group-hover:animate-float">🏢</div>

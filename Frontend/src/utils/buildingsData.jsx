@@ -1,0 +1,42 @@
+export const buildings = [
+  {
+    id: 'A',
+    name: 'Bâtiment A - GCE1',
+    icon: '🏛️',
+    coordinates: [50.384874, 3.085626],
+    description: 'Services administratifs et direction',
+    color: 'bg-gray-200',
+  },
+  {
+    id: 'B',
+    name: 'Bâtiment B - IM',
+    icon: '🔬',
+    coordinates: [50.385556, 3.084444],
+    description: 'Laboratoires de recherche avancée',
+    color: 'bg-gray-200',
+  },
+  {
+    id: 'C',
+    name: 'Bâtiment C - GCE2',
+    icon: '📚',
+    coordinates: [50.385111, 3.08475],
+    description: 'Amphithéâtres et salles de cours',
+    color: 'bg-gray-200',
+  },
+  {
+    id: 'D',
+    name: 'Bâtiment D - Innovation',
+    icon: '💡',
+    coordinates: [50.3784, 3.0712],
+    description: 'Centre d\'innovation technologique',
+    color: 'bg-gray-200',
+  },
+  {
+    id: 'E',
+    name: 'Bâtiment E - Bibliothèque',
+    icon: '📖',
+    coordinates: [50.3776, 3.0713],
+    description: 'Bibliothèque et espaces d\'étude',
+    color: 'bg-gray-200',
+  },
+];
